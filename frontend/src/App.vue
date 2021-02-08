@@ -7,8 +7,6 @@
             <input 
               type="search" 
               v-model="keyword" 
-              @input="searchUser"
-              @blur="focusout"
               @keyup.enter="search(keyword)"
             >
             <div class="login">
