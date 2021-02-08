@@ -13,10 +13,10 @@
               로그인
             </div>
           </div>
-
       </nav>
     </div>
-    <router-view/>
+    <router-link to="/detail">Detail</router-link>
+    <router-view />
   </v-app>
 </template>
 
@@ -28,6 +28,12 @@ export default {
     return {
       keyword: null,
       isActive:null,
+    }
+  },
+  
+  methods: {
+    clickDetail() {
+      this.$router.push('/detail')
     }
   }
 };
