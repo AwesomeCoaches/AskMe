@@ -1,6 +1,13 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <!-- Q & A 리스트 -->
+    <div class="col-9">
+
+    </div>
+    <!-- 목차쪽 -->
+    <div class="col-3">
+
+    </div>
   </div>
 </template>
 
@@ -11,3 +18,7 @@ export default {
   name: 'Home',
 }
 </script>
+
+<style scoped>
+
+</style>
