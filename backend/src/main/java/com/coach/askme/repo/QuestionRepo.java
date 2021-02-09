@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface QuestionRepo extends MongoRepository<Question, String> {
+public interface QuestionRepo extends MongoRepository<Question, Long> {
 
-    Optional<Question> findByQid(Integer qid);
+    Optional<Question> findByQid(Long qid);
 }

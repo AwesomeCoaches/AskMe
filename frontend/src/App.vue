@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div>
-      <nav class="d-flex justify-content-between align-center">
+      <nav class="d-flex justify-content-between align-center" v-if="this.$route.name!=='Login'">
           <img src="@/assets/askme.png" alt="logo"/>
           <div class="d-flex align-center">
             <input 
@@ -9,7 +9,7 @@
               v-model="keyword" 
               @keyup.enter="search(keyword)"
             >
-            <div class="login">
+            <div class="login" @click="clickLogin">
               로그인
             </div>
           </div>
@@ -34,6 +34,9 @@ export default {
   methods: {
     clickDetail() {
       this.$router.push('/detail')
+    },
+    clickLogin() {
+      this.$router.push('/login')
     }
   }
 };

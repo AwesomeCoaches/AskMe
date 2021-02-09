@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AnswerRepo extends MongoRepository<Answer, String> {
+public interface AnswerRepo extends MongoRepository<Answer, Long> {
 
-    Optional<Answer> findByAid(Integer aid);
+    Optional<Answer> findByAid(Long aid);
 }
