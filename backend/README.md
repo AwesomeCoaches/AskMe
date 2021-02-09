@@ -190,11 +190,11 @@
     # Response
     # List 반환
     [
-    	{
+          {
               "author": "String",
               "content": "String",
               "createDate": "2021-02-09T01:21:42.007Z"
-      }
+          }
     ]
     ```
 
