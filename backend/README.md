@@ -32,14 +32,14 @@
     # List 반환
     [
     	{
-          "author": "string",
-          "content": "string",
-          "count": 0,
-          "createDate": "2021-02-09T02:27:57.107Z",
-          "mainCategory": "string",
-          "qid": 0,
-          "subCategory": "string",
-          "title": "string"
+              "author": "string",
+              "content": "string",
+              "count": 0,
+              "createDate": "2021-02-09T02:27:57.107Z",
+              "mainCategory": "string",
+              "qid": 0,
+              "subCategory": "string",
+              "title": "string"
     	}
     ]
     ```
@@ -158,15 +158,16 @@
     # List 반환
     [
     	{
-          "author": "string",
-          "content": "string",
-          "count": 0,
-          "createDate": "2021-02-09T02:27:57.107Z",
-          "mainCategory": "string",
-          "qid": 0,
-          "subCategory": "string",
-          "title": "string"
+              "author": "string",
+              "content": "string",
+              "count": 0,
+              "createDate": "2021-02-09T02:27:57.107Z",
+              "mainCategory": "string",
+              "qid": 0,
+              "subCategory": "string",
+              "title": "string"
     	}
+    ]
     ```
 
     
@@ -190,10 +191,10 @@
     # List 반환
     [
     	{
-          "author": "String",
-          "content": "String",
-          "createDate": "2021-02-09T01:21:42.007Z"
-        }
+              "author": "String",
+              "content": "String",
+              "createDate": "2021-02-09T01:21:42.007Z"
+      }
     ]
     ```
 
