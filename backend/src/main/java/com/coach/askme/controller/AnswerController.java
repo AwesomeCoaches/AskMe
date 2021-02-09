@@ -46,7 +46,6 @@ public class AnswerController {
         // save
         answer.setAid(answerService.getNextSequence("answer_sequence"));
         answerRepo.save(answer);
-
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
@@ -54,14 +53,14 @@ public class AnswerController {
     @PutMapping("")
     public ResponseEntity<Boolean> updateQuestion(@RequestBody Answer answer) {
         // save
-
+        answerRepo.save(answer);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
     @ApiOperation(value = "답글 삭제")
     @DeleteMapping("/{aid}")
-    public ResponseEntity<Boolean> deleteQuestion(@PathVariable Integer aid) {
-
+    public ResponseEntity<Boolean> deleteQuestion(@PathVariable Long aid) {
+        answerRepo.deleteById(aid);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
