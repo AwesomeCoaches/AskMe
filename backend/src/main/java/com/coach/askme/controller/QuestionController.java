@@ -3,6 +3,7 @@ package com.coach.askme.controller;
 
 import com.coach.askme.model.Question;
 import com.coach.askme.repo.QuestionRepo;
+import com.coach.askme.service.QuestionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class QuestionController {
 
     @Autowired
     QuestionRepo questionRepo;
+
+    @Autowired
+    QuestionService questionService;
 
 
     @ApiOperation(value = "질문 전체 리스트")
@@ -57,6 +61,15 @@ public class QuestionController {
     public ResponseEntity<Boolean> deleteQuestion(@PathVariable Integer qid) {
 
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "질문 필터링")
+    @GetMapping("/search")
+    public  List<Question> searchQuestion(){
+
+        List<Question> list = questionRepo.findAll();
+
+        return list;
     }
 
 
