@@ -17,14 +17,18 @@
         </template>
 
         <v-card-text># 질문 번호</v-card-text>
+        
+         
         <v-card-title>Q. 여기에 질문을 작성할 것입니다. I'll write question here.</v-card-title>
+        <v-card-title class="d-flex justify-content-end">작성자다!</v-card-title>
+        
 
         <v-divider class="mx-4"></v-divider>
         <v-card-text>
           <v-col align="left" margin="0px" >        
             <v-chip text-color="white" color="blue" small>대분류</v-chip>
             <v-chip text-color="white" color="green" small>소분류</v-chip>
-            <v-chip text-color="white" color="pink" small>소분류</v-chip>
+            <v-chip text-color="white" color="pink" small>키워드</v-chip>
           </v-col>
         </v-card-text>   
    
