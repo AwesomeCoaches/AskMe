@@ -12,6 +12,31 @@
 
 ## API
 
+- #### User Controller
+
+  > 유저에 대한 API
+
+  - **/users/signup**
+
+    ```assembly
+    # 회원가입
+    # RequestBody
+    Method : POST
+  ```
+  
+    | Parameter | Type   | Description     |
+    | --------- | ------ | --------------- |
+    | name      | String | 사용자 이름     |
+    | password  | String | 사용자 비밀번호 |
+  
+    ```assembly
+    # Response
+    success : 200 OK
+    fail : 404 NOT FOUND
+    ```
+  
+    
+  
 - #### Question Controller
 
   > 질문 게시글에 대한 API
