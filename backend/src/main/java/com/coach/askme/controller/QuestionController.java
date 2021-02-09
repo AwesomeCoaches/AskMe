@@ -31,7 +31,7 @@ public class QuestionController {
 
     @ApiOperation(value = "질문 상세정보")
     @GetMapping("/{qid}")
-    public Question getQuestion(@PathVariable Integer qid) {
+    public Question getQuestion(@PathVariable Long qid) {
         Optional<Question> qOpt =  questionRepo.findByQid(qid);
         return qOpt.get();
     }

@@ -2,6 +2,7 @@ package com.coach.askme.model;
 
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,10 +13,11 @@ import java.time.LocalDateTime;
 @Document
 public class Question {
 
-    private String _id; // 질문 아이디
+//    private String _id; // 질문 아이디
 
 //    @Generated
-    private Integer qid; // 질문 번호
+    @Id
+    private Long qid; // 질문 번호
     private String Title; // 질문 제목
     private String Content; // 질문 내용
     private String Author; // 질문 작성자
