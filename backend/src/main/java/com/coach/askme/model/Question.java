@@ -2,6 +2,8 @@ package com.coach.askme.model;
 
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,13 +11,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 @Data
-@Document
+@Document(collection = "question")
 public class Question {
 
-    private String _id; // 질문 아이디
+    @Transient
+    public static final String SEQUENCE_NAME = "question_sequence";
 
-//    @Generated
-    private Integer qid; // 질문 번호
+    @Id
+    private Long qid; // 질문 번호
     private String Title; // 질문 제목
     private String Content; // 질문 내용
     private String Author; // 질문 작성자
