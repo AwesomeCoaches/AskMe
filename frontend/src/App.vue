@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div>
-      <nav class="d-flex justify-content-between align-center" v-if="this.$route.name!=='Login'">
+      <nav class="d-flex justify-content-between align-center" v-if="this.$route.name!=='Login' && this.$route.name!=='Signup'">
           <img src="@/assets/askme.png" alt="logo"/>
           <div class="d-flex align-center">
             <input 

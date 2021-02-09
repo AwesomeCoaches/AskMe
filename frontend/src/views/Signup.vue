@@ -12,30 +12,33 @@
               언제든 참여해주세요!!
             </small>
             <br/>
-            <button class="btn mt-3" @click="clickSignup">Sign Up</button>
+            <button class="btn mt-3" @click="clickLogin">Login</button>
           </div>
         </div>
-        <div class="login-form col-7 h-100 d-flex align-center">
-          <div class="login-container m-auto h-50">
-            <h3 class="login text-center">Login</h3>
+        <div class="signup-form col-7 h-100 d-flex align-center">
+          <div class="signup-container m-auto h-50">
+            <h3 class="signup text-center">Signup</h3>
             <hr class="w-25 m-auto">
             <input placeholder="이름을 입력해주세요" autofocus>
             <input placeholder="패스워드를 입력해주세요">
-            <button class="btn mt-3">Login</button>
+            <input placeholder="패스워드를 다시 입력해주세요">
+            <button class="btn mt-3">Signup</button>
           </div>
         </div>
       </div>
+      
     </div>
   </div>
+
 </template>
 
 <script>
 export default {
   name: 'Login',
   methods: {
-    clickSignup() {
-      this.$router.push('/signup')
-    }
+      clickLogin() {
+          this.$router.push('/login')
+      }
   }
 }
 </script>
@@ -76,8 +79,8 @@ export default {
         }
       }
     }
-    .login-form {
-      .login-container {
+    .signup-form {
+      .signup-container {
         width: 60%;
       }
       hr {
