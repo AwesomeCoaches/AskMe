@@ -44,7 +44,8 @@ public class QuestionController {
     @PostMapping("")
     public ResponseEntity<Boolean> insertQuestion(@RequestBody Question question) {
         // save
-
+        question.setQid(questionService.getNextSequence("question_sequence"));
+        questionRepo.save(question);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
@@ -52,23 +53,21 @@ public class QuestionController {
     @PutMapping("")
     public ResponseEntity<Boolean> updateQuestion(@RequestBody Question question) {
         // save
-
+        questionRepo.save(question);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
     @ApiOperation(value = "질문 삭제")
     @DeleteMapping("/{qid}")
-    public ResponseEntity<Boolean> deleteQuestion(@PathVariable Integer qid) {
-
+    public ResponseEntity<Boolean> deleteQuestion(@PathVariable Long qid) {
+        questionRepo.deleteById(qid);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
     @ApiOperation(value = "질문 필터링")
     @GetMapping("/search")
     public  List<Question> searchQuestion(){
-
         List<Question> list = questionRepo.findAll();
-
         return list;
     }
 
