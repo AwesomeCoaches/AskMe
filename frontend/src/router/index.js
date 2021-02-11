@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Detail from '@/views/Detail.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
+import Editor from '@/views/Editor.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup
+  },
+  {
+    path: '/add',
+    name: 'Editor',
+    component: Editor
   }
 ]
 
