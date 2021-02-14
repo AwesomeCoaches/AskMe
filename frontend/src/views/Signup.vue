@@ -19,10 +19,28 @@
           <div class="signup-container m-auto h-50">
             <h3 class="signup text-center">Signup</h3>
             <hr class="w-25 m-auto">
-            <input placeholder="이름을 입력해주세요" autofocus>
-            <input placeholder="패스워드를 입력해주세요">
-            <input placeholder="패스워드를 다시 입력해주세요">
-            <button class="btn mt-3">Signup</button>
+            <input 
+              placeholder="이름을 입력해주세요" 
+              autofocus
+              v-model="signupData.name"
+              required
+            >
+            <input 
+              placeholder="패스워드를 입력해주세요"
+              v-model="signupData.password"
+              type="password"
+              required
+            >
+            <input 
+              placeholder="패스워드를 다시 입력해주세요"
+              v-model="passwordConfirmation"
+              type="password"
+              required
+            >
+            <button 
+              class="btn mt-3"
+              @click="clickSignup"
+            >Signup</button>
           </div>
         </div>
       </div>
@@ -33,11 +51,30 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Login',
+  data() {
+    return {
+      signupData: {
+        name: '',
+        password: '',
+        uid: ''
+      },
+      passwordConfirmation: '',
+    }
+  },
   methods: {
       clickLogin() {
           this.$router.push('/login')
+      },
+      clickSignup() {
+        if (this.signupData.password === this.passwordConfirmation) {
+          axios.post("http://t4coach38.p.ssafy.io/users/signup", this.signupData)
+            .then(res => {
+              console.log("Success", res)
+            })
+        }
       }
   }
 }
@@ -90,6 +127,7 @@ export default {
         border: 0;
       }
       input {
+        font-family: fangsong;
         border-bottom: 2px solid #8080800f;
         margin: 15px 0;
         width: 100%;
