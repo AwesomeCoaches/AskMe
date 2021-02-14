@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @Api(value = "유저에 대한 API")
 @RestController
 @RequestMapping("/users")
@@ -25,9 +27,20 @@ public class UserController {
 
     @ApiOperation(value = "회원 가입")
     @PostMapping("/signup")
-    public ResponseEntity<Boolean> insertQuestion(@RequestBody User user) {
+    public ResponseEntity<Boolean> signup(@RequestBody User user) {
         user.setUid(userService.getNextSequence("user_sequence"));
         userRepo.save(user);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "로그인")
+    @PostMapping("/login")
+    public ResponseEntity<Boolean> login(@RequestBody User user) {
+        Optional<User> userOpt = userRepo.findByName(user.getName()); // 이름으로 DB 검색
+        if (userOpt == null) {
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+        }
     }
 }
