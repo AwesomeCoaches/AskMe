@@ -5,7 +5,8 @@
       <v-card
       :loading="loading"
       class="mx-auto my-12"
-      width="100%"
+      width="100%" 
+      @click="clickCard"
       >
     
         <template slot="progress">
@@ -22,7 +23,6 @@
         <v-card-title>Q. 여기에 질문을 작성할 것입니다. I'll write question here.</v-card-title>
         <v-card-title class="d-flex justify-content-end">작성자다!</v-card-title>
         
-
         <v-divider class="mx-4"></v-divider>
         <v-card-text>
           <v-col align="left" margin="0px" >        
@@ -42,15 +42,102 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
+import axios from 'axios'
 export default {
   name: 'Home',
+  data() {
+    return {
+      signupData: {
+        name: '',
+        password: '',
+        uid: ''
+      },
+      passwordConfirmation: '',
+    }
+  },
+  methods: {
+      clickCard() {
+          this.$router.push('/detail')
+      },
+      clickSignup() {
+        if (this.signupData.password === this.passwordConfirmation) {
+          axios.post()
+            .then(res => {
+              console.log("Success", res)
+            })
+        }
+      }
+  }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.background {
+  background-color: snow;
+  height: 100%;
+}
 
+.card {
+  height: 60%;
+  border-radius: 5%;
+  border: 0;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, .1);
+  .card-item {
+    height: 100%;
+    .intro {
+      background-color: #d1f2e8;
+      border-top-left-radius: 6%;
+      border-bottom-left-radius: 6%;
+      hr {
+        height: 3px;
+        background-color: #2e0d17;
+      }
+      .welcome {
+        color: midnightblue;
+      }
+      .intro-text {
+        word-break: keep-all;
+      }
+      button {
+        border: 1px solid white;
+        border-radius: 15px;
+        &:hover {
+          background-color: #8bdec5;
+          color: white;
+        }
+      }
+    }
+    .signup-form {
+      .signup-container {
+        width: 60%;
+      }
+      hr {
+        margin-bottom: 10px;
+        height: 3px;
+        background-color: midnightblue; 
+        border: 0;
+      }
+      input {
+        font-family: fangsong;
+        border-bottom: 2px solid #8080800f;
+        margin: 15px 0;
+        width: 100%;
+        &:hover, &:active {
+          border-bottom: 2px solid #8bdec5;
+        }
+      } 
+      button {
+        background-color: #8bdec5;
+        color: white;
+        width: 100%;
+        border-radius: 15px;
+        &:hover {
+            background-color: #67d5b5;
+        }
+      }
+    }
+  }
+}
 </style>
 
 
