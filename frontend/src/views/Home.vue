@@ -42,31 +42,16 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'Home',
   data() {
     return {
-      signupData: {
-        name: '',
-        password: '',
-        uid: ''
-      },
-      passwordConfirmation: '',
     }
   },
   methods: {
-      clickCard() {
-          this.$router.push('/detail')
-      },
-      clickSignup() {
-        if (this.signupData.password === this.passwordConfirmation) {
-          axios.post()
-            .then(res => {
-              console.log("Success", res)
-            })
-        }
-      }
+    clickCard() {
+      this.$router.push('/detail')
+    },
   }
 }
 </script>
