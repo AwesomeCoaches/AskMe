@@ -2,32 +2,46 @@
   <v-app>
     <div>
       <nav class="d-flex justify-content-between align-center" v-if="this.$route.name!=='Login' && this.$route.name!=='Signup'">
-          <img 
-            class="logo"
-            src="@/assets/askme.png" 
-            alt="logo" 
-          />
-          <div class="d-flex align-center">
-            <input 
-              type="search" 
-              v-model="keyword" 
-              @keyup.enter="search(keyword)"
-            >
-            <div class="login" @click="clickLogin">
-              로그인
-            </div>
+        <img 
+          class="logo"
+          src="@/assets/askme.png" 
+          alt="logo" 
+          @click="clickLogo"
+        />
+        <div class="d-flex align-center">
+          <input 
+            type="search" 
+            v-model="keyword" 
+            @keyup.enter="search(keyword)"
+          >
+          <div 
+            class="login" 
+            @click="clickLogin"
+            v-if="!authToken"
+          >
+            로그인
           </div>
+          <div
+            class="logout"
+            @click="logout()"
+            v-else
+          >
+            로그아웃
+          </div>
+        </div>
       </nav>
     </div>
-    
-    <router-view />
+    <router-view class="my-3" />
   </v-app>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'App',
-
+  computed: {
+    ...mapState(['authToken']),
+  },
   data() {
     return {
       keyword: null,
@@ -36,6 +50,7 @@ export default {
   },
   
   methods: {
+    ...mapActions(['logout']),
     clickDetail() {
       this.$router.push('/detail')
     },
@@ -44,7 +59,7 @@ export default {
     },
     clickLogin() {
       this.$router.push('/login')
-    }
+    },
   }
 };
 </script>
@@ -138,9 +153,19 @@ nav {
   .login {
     color: white;
     padding: 10px;
+    cursor: pointer;
+    &:hover {
+      color: #d56787;
+    }
+  }
+  .logout {
+    color: white; 
+    padding: 10px; 
+    cursor: pointer;
     &:hover {
       color: #d56787;
     }
   }
 }
+
 </style>
