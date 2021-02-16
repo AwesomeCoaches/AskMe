@@ -8,15 +8,13 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @Api(value = "유저에 대한 API")
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/users")
 public class UserController {
     @Autowired
@@ -33,7 +31,7 @@ public class UserController {
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "로그인")
+    @ApiOperation(value = "로그인") 
     @PostMapping("/login")
     public ResponseEntity<Boolean> login(@RequestBody User user) {
         Optional<User> userOpt = userRepo.findByName(user.getName()); // 이름으로 DB 검색

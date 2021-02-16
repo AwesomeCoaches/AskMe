@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @Api(value = "게시글에 대한 API")
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/questions")
 public class QuestionController {
 

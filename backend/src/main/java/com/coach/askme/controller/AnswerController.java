@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @Api(value = "답글에 대한 API")
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/answers")
 public class AnswerController {
 
