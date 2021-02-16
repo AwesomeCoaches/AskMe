@@ -19,6 +19,7 @@ public class Question {
     private String Title; // 질문 제목
     private String Content; // 질문 내용
     private String Author; // 질문 작성자
+    private String Keyword; // 질문 키워드
 
 //    private String[] tags; // 질문 태그
 
