@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,9 @@ public class AnswerController {
     public ResponseEntity<Boolean> insertQuestion(@RequestBody Answer answer) {
         // save
         answer.setAid(answerService.getNextSequence("answer_sequence"));
+        SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm");
+        String time = format.format(System.currentTimeMillis());
+        answer.setCreateDate(time);
         answerRepo.save(answer);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
@@ -54,6 +58,9 @@ public class AnswerController {
     @PutMapping("")
     public ResponseEntity<Boolean> updateQuestion(@RequestBody Answer answer) {
         // save
+        SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm");
+        String time = format.format(System.currentTimeMillis());
+        answer.setCreateDate(time);
         answerRepo.save(answer);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }

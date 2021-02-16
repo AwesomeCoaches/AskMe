@@ -6,9 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDateTime;
 
 @Data
 @Document(collection = "question")
@@ -34,8 +31,7 @@ public class Question {
     private String MainCategory; // 대분류
     private String SubCategory; // 소분류
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime CreateDate; // 질문 등록일
+    private String CreateDate; // 질문 등록일
 
 
 }
