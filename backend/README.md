@@ -22,7 +22,28 @@
     # 회원가입
     # RequestBody
     Method : POST
-  ```
+    ```
+    
+    | Parameter | Type   | Description     |
+    | --------- | ------ | --------------- |
+    | name      | String | 사용자 이름     |
+    | password  | String | 사용자 비밀번호 |
+    
+    ```assembly
+    # Response
+    success : 200 OK
+    fail : 404 NOT FOUND
+    ```
+  
+    
+  
+  - **/users/login**
+  
+    ```assembly
+    # 로그인
+    # RequestBody
+    Method : POST
+    ```
   
     | Parameter | Type   | Description     |
     | --------- | ------ | --------------- |
@@ -218,93 +239,123 @@
           {
               "author": "String",
               "content": "String",
-              "createDate": "2021-02-09T01:21:42.007Z"
+              "createDate": "2021-02-09T01:21:42.007Z",
+              "qid": 0
           }
     ]
-    ```
-
-    
-
-  - **/answers/{aid}**
-
+  ```
+  
+  
+  
+- **/answers/{qid}**
+  
     ```assembly
+    # 질문에 대한 답글 전체 리스트 
+    Method : GET
+  ```
+  
+    | Parameter | Type | Description |
+    | --------- | ---- | ----------- |
+  | qid       | Long | 질문 번호   |
+  
+    ```assembly
+    # Response
+    # List 반환
+    [
+          {
+              "author": "String",
+              "content": "String",
+            "createDate": "2021-02-09T01:21:42.007Z",
+              "qid": 0
+        }
+    ]
+  ```
+  
+    
+  
+  - **/answers/{aid}**
+  
+  ```assembly
     # 답글 상세정보
     Method : GET
     ```
-
-    | Parameter | Type | Description |
+  
+  | Parameter | Type | Description |
     | --------- | ---- | ----------- |
     | aid       | Long | 답글 번호   |
-
+  
     ```assembly
     # Response
-    {
+  {
         "author": "String",
-        "content": "String",
-        "createDate": "2021-02-09T01:21:42.007Z"
+      "content": "String",
+        "createDate": "2021-02-09T01:21:42.007Z",
+      "qid": 0
     }
     ```
-
+  
     
-
-  - **/answers**
-
+  
+- **/answers**
+  
     ```assembly
     # 답글 등록 
     # RequestBody
     Method : POST
-    ```
-
+  ```
+  
     | Parameter | Type   | Description |
     | --------- | ------ | ----------- |
     | author    | String | 답글 제목   |
     | content   | String | 답글 내용   |
-
-    ```assembly
+  | qid       | Long   | 질문 번호   |
+  
+  ```assembly
     # Response
-    success : 200 OK
+  success : 200 OK
     fail : 404 NOT FOUND
     ```
-
+  
     
 
   - **/answers**
-
+  
     ```assembly
-    # 답글 수정
+  # 답글 수정
     # RequestBody
     Method : POST
     ```
-
+  
     | Parameter | Type   | Description |
-    | --------- | ------ | ----------- |
+  | --------- | ------ | ----------- |
     | aid       | String | 답글 번호   |
     | author    | String | 답글 제목   |
     | content   | String | 답글 내용   |
-
+    | qid       | Long   | 질문 번호   |
+  
     ```assembly
     # Response
     success : 200 OK
     fail : 404 NOT FOUND
     ```
-
+  
     
-
+  
   - **/answers/{aid}**
-
+  
     ```assembly
     # 답글 삭제
     Method : DELETE
     ```
-
+  
     | Parameter | Type | Description |
     | --------- | ---- | ----------- |
     | aid       | Long | 답글 번호   |
-
+  
     ```assembly
     # Response
     success : 200 OK
     fail : 404 NOT FOUND
     ```
-
+  
     
