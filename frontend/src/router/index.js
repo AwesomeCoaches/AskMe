@@ -5,6 +5,7 @@ import Detail from '@/views/Detail.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Editor from '@/views/Editor.vue'
+import Ranking from '@/views/Ranking.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/add',
     name: 'Editor',
     component: Editor
+  },
+  {
+    path:'/ranking',
+    name: 'Ranking',
+    component: Ranking
   }
 ]
 
