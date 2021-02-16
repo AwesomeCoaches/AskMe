@@ -28,7 +28,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    signup(signupData) {
+    signup({state}, signupData) {
+      console.log(state.author)
       axios.post(api.URL + api.ROUTES.signup, signupData)
         .then(res => {
           console.log("Success", res)
