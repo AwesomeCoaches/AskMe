@@ -4,7 +4,6 @@ package com.coach.askme.model;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -19,10 +18,7 @@ public class Answer {
     private Long aid; // 답글 번호
     private String Content; // 답글 내용
     private String Author; // 답글 작성자
-
-    @DBRef
-    private Question question;
-
+    private Long qid;
     private String CreateDate; // 답글 등록일
 
 
