@@ -19,9 +19,18 @@
           <div class="login-container m-auto h-50">
             <h3 class="login text-center">Login</h3>
             <hr class="w-25 m-auto">
-            <input placeholder="이름을 입력해주세요" autofocus>
-            <input placeholder="패스워드를 입력해주세요">
-            <button class="btn mt-3">Login</button>
+            <input 
+              v-model="loginData.name"
+              placeholder="이름을 입력해주세요" 
+              autofocus
+            >
+            <input 
+              v-model="loginData.password"
+              placeholder="비밀번호를 입력해주세요"
+              @keyup.enter="login(loginData)"
+              type="password"
+            >
+            <button class="btn mt-3" @click="login(loginData)">Login</button>
           </div>
         </div>
       </div>
@@ -30,12 +39,22 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'Login',
+  data() {
+    return {
+      loginData: {
+        name: '',
+        password: '',
+      }
+    }
+  },
   methods: {
+    ...mapActions(['login']),
     clickSignup() {
       this.$router.push('/signup')
-    }
+    },
   }
 }
 </script>
@@ -87,6 +106,7 @@ export default {
         border: 0;
       }
       input {
+        font-family: fangsong;
         border-bottom: 2px solid #8080800f;
         margin: 15px 0;
         width: 100%;

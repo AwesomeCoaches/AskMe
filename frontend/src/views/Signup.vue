@@ -26,16 +26,17 @@
               required
             >
             <input 
-              placeholder="패스워드를 입력해주세요"
+              placeholder="비밀번호를 입력해주세요"
               v-model="signupData.password"
               type="password"
               required
             >
             <input 
-              placeholder="패스워드를 다시 입력해주세요"
+              placeholder="비밀번호를 다시 입력해주세요"
               v-model="passwordConfirmation"
               type="password"
               required
+              @keyup.enter="clickSignup"
             >
             <button 
               class="btn mt-3"
@@ -51,7 +52,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapActions } from 'vuex'
 export default {
   name: 'Login',
   data() {
@@ -59,21 +60,20 @@ export default {
       signupData: {
         name: '',
         password: '',
-        uid: ''
       },
       passwordConfirmation: '',
     }
   },
   methods: {
+    ...mapActions(['signup']),
       clickLogin() {
           this.$router.push('/login')
       },
       clickSignup() {
         if (this.signupData.password === this.passwordConfirmation) {
-          axios.post("http://t4coach38.p.ssafy.io/users/signup", this.signupData)
-            .then(res => {
-              console.log("Success", res)
-            })
+          this.signup(this.signupData)
+        } else {
+          alert('비밀번호가 일치하지 않습니다.')
         }
       }
   }

@@ -13,8 +13,19 @@
               v-model="keyword" 
               @keyup.enter="search(keyword)"
             >
-            <div class="login" @click="clickLogin">
+            <div 
+              class="login" 
+              @click="clickLogin"
+              v-if="authToken"
+            >
               로그인
+            </div>
+            <div
+              class="logout"
+              @click="logout()"
+              v-else
+            >
+              로그아웃
             </div>
           </div>
       </nav>
@@ -25,17 +36,20 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'App',
 
   data() {
     return {
+      ...mapState(['authToken']),
       keyword: null,
       isActive:null,
     }
   },
   
   methods: {
+    ...mapActions(['logout']),
     clickDetail() {
       this.$router.push('/detail')
     },
@@ -138,6 +152,15 @@ nav {
   .login {
     color: white;
     padding: 10px;
+    cursor: pointer;
+    &:hover {
+      color: #d56787;
+    }
+  }
+  .logout {
+    color: white; 
+    padding: 10px; 
+    cursor: pointer;
     &:hover {
       color: #d56787;
     }
