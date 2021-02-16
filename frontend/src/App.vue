@@ -2,7 +2,11 @@
   <v-app>
     <div>
       <nav class="d-flex justify-content-between align-center" v-if="this.$route.name!=='Login' && this.$route.name!=='Signup'">
-          <img src="@/assets/askme.png" alt="logo"/>
+          <img 
+            class="logo"
+            src="@/assets/askme.png" 
+            alt="logo" 
+          />
           <div class="d-flex align-center">
             <input 
               type="search" 
@@ -15,7 +19,7 @@
           </div>
       </nav>
     </div>
-    <router-link to="/detail">Detail</router-link>
+    
     <router-view />
   </v-app>
 </template>
@@ -34,6 +38,9 @@ export default {
   methods: {
     clickDetail() {
       this.$router.push('/detail')
+    },
+    clickLogo() {
+      this.$router.push('/')
     },
     clickLogin() {
       this.$router.push('/login')
@@ -126,6 +133,7 @@ nav {
   background-color: #67d5b5;
   img {
     height: 6vh;
+    cursor: pointer;
   }
   .login {
     color: white;
