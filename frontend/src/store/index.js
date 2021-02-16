@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import questionStore from '@/store/modules/questionStore'
+
 import api from '@/assets/api/api'
 import cookies from 'vue-cookies'
 import router from '@/router'
@@ -10,7 +12,8 @@ import axios from 'axios'
 
 export default new Vuex.Store({
   state: {
-    authToken: cookies.get('auth-token')
+    authToken: cookies.get('auth-token'),
+    author: ""
   },
   getters: {
     config: state => ({headers: { jwt : state.authToken }}),
@@ -20,6 +23,9 @@ export default new Vuex.Store({
       state.authToken = token
       cookies.set('auth-token', token)
     },
+    SET_AUTHOR(state, author) {
+      state.author = author 
+    }
   },
   actions: {
     signup(signupData) {
@@ -37,6 +43,7 @@ export default new Vuex.Store({
         .then(res => {
           console.log("Success", res)
           commit('SET_TOKEN', res.data)
+          commit('SET_AUTHOR', loginData.name)
           router.push({ name: 'Home' })
         })
         .catch(err => {
@@ -45,10 +52,12 @@ export default new Vuex.Store({
     },
     logout({ commit }) {
       commit('SET_TOKEN', null)
+      commit('SET_AUTHOR', null)
       cookies.remove('auth-token')
       router.push({ name: 'Login'})
     }
   },
   modules: {
+    questionStore: questionStore,
   }
 })
