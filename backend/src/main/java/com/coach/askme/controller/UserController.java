@@ -31,11 +31,11 @@ public class UserController {
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "로그인") 
+    @ApiOperation(value = "로그인")
     @PostMapping("/login")
     public ResponseEntity<Boolean> login(@RequestBody User user) {
-        Optional<User> userOpt = userRepo.findByName(user.getName()); // 이름으로 DB 검색
-        if (userOpt == null) {
+        Optional<User> userOpt = userRepo.findByNameAndPassword(user.getName(), user.getPassword()); // 이름으로 DB 검색
+        if (userOpt != null) {
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } else {
             return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
