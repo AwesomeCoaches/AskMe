@@ -5,8 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "userSequence")
-public class UserSequence {
+@Document(collection = "memberSequence")
+public class MemberSequence {
 
     @Id
     private String id;
