@@ -38,6 +38,10 @@
     <div class="col-3">
 
     </div>
+    <button 
+      class="plus" 
+      @click="clickAdd"
+    >+</button>
   </div>
 </template>
 
@@ -52,6 +56,9 @@ export default {
     clickCard() {
       this.$router.push('/detail')
     },
+    clickAdd() {
+      this.$router.push('/add')
+    }
   }
 }
 </script>
@@ -122,6 +129,18 @@ export default {
       }
     }
   }
+}
+
+.plus {
+  font-size: 2.5rem;
+  background-color: pink;
+  color: white; 
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 50px;
+  bottom : 50px;
+  border-radius: 50%;
 }
 </style>
 

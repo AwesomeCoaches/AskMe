@@ -17,7 +17,7 @@
           <div 
             class="login" 
             @click="clickLogin"
-            v-if="authToken"
+            v-if="!authToken"
           >
             로그인
           </div>
@@ -31,8 +31,7 @@
         </div>
       </nav>
     </div>
-    
-    <router-view />
+    <router-view class="my-3" />
   </v-app>
 </template>
 
@@ -40,10 +39,11 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'App',
-
+  computed: {
+    ...mapState(['authToken']),
+  },
   data() {
     return {
-      ...mapState(['authToken']),
       keyword: null,
       isActive:null,
     }
@@ -59,7 +59,7 @@ export default {
     },
     clickLogin() {
       this.$router.push('/login')
-    }
+    },
   }
 };
 </script>
@@ -167,4 +167,5 @@ nav {
     }
   }
 }
+
 </style>
