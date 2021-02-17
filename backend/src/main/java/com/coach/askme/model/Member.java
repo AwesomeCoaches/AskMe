@@ -7,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document
-public class User {
+public class Member {
 
     @Transient
-    public static final String SEQUENCE_NAME = "user_sequence";
+    public static final String SEQUENCE_NAME = "member_sequence";
 
     @Id
-    private Long uid;
+    private Long mid;
     private String name;
     private String password;
 }

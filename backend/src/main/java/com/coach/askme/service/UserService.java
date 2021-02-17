@@ -1,6 +1,6 @@
 package com.coach.askme.service;
 
-import com.coach.askme.model.UserSequence;
+import com.coach.askme.model.MemberSequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;
@@ -19,11 +19,11 @@ public class UserService {
 
     public Long getNextSequence(String seqName)
     {
-        UserSequence as = mongo.findAndModify(
+        MemberSequence as = mongo.findAndModify(
                 query(where("_id").is(seqName)),
                 new Update().inc("seq",1),
                 options().returnNew(true).upsert(true),
-                UserSequence.class);
+                MemberSequence.class);
         return !Objects.isNull(as) ? as.getSeq() : 1;
     }
 }
