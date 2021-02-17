@@ -99,7 +99,7 @@ export default {
     editor: Editor
   },
   computed: {
-    ...mapState(['author']),
+    ...mapState(['userInfo']),
   },
   data() {
     return {
@@ -121,6 +121,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['getInfo']),
     ...mapActions('questionStore', ['addQuestion']),
     submit() {
       var content = this.$refs.toastuiEditor.invoke("getMarkdown")
@@ -140,12 +141,15 @@ export default {
         obj.mainCategory = this.mainCategory
         obj.subCategory = this.subCategory
         obj.keyword = this.keyword
-        obj.author = this.author 
+        obj.author = this.userInfo.name 
         obj.content = content
         this.addQuestion(obj)
       }
     }
   },
+  created() {
+    this.getInfo();
+  }
 }
 </script>
 

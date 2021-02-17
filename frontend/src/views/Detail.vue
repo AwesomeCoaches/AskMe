@@ -82,13 +82,16 @@ import { mapState, mapActions } from 'vuex'
 export default {
     name: 'Detail',
     computed: {
+        ...mapState(['userInfo']),
         ...mapState('questionStore', ['question'])
     },
     methods: {
+        ...mapActions(['getInfo']),
         ...mapActions('questionStore', ['getQuestion'])
     },
     created() {
         this.getQuestion(this.$route.params.qid)
+        this.getInfo()
     }
 }
 </script>
