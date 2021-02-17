@@ -13,7 +13,7 @@ import axios from 'axios'
 export default new Vuex.Store({
   state: {
     authToken: cookies.get('auth-token'),
-    author: ""
+    userInfo: null
   },
   getters: {
     config: state => ({headers: { 'Authorization' : `Bearer ${state.authToken}`}}),
@@ -23,8 +23,8 @@ export default new Vuex.Store({
       state.authToken = token
       cookies.set('auth-token', token)
     },
-    SET_AUTHOR(state, author) {
-      state.author = author 
+    SET_USERINFO(state, userInfo) {
+      state.userInfo = userInfo
     }
   },
   actions: {
@@ -39,11 +39,11 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    login({ commit }, loginData) {
+    login({ commit, dispatch }, loginData) {
       axios.post(api.URL + api.ROUTES.login, loginData)
         .then(res => {
           commit('SET_TOKEN', res.data.token)
-          commit('SET_AUTHOR', loginData.name)
+          dispatch('getInfo')
           router.push({ name: 'Home' })
         })
         .catch(err => {
@@ -52,9 +52,18 @@ export default new Vuex.Store({
     },
     logout({ commit }) {
       commit('SET_TOKEN', null)
-      commit('SET_AUTHOR', null)
+      commit("SET_USERINFO", null)
       cookies.remove('auth-token')
       router.push({ name: 'Login'})
+    },
+    getInfo({ getters, commit }) {
+      axios.get(api.URL + api.ROUTES.users, getters.config)
+        .then(res => {
+          commit('SET_USERINFO', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   modules: {
