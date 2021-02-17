@@ -46,8 +46,8 @@ public class StatisticsController {
         List<HashMap> listB = resultB.getMappedResults();
 
         HashMap<String, List> result = new HashMap<>();
-        result.put("subCategory",listA);
-        result.put("keyword",listB);
+        result.put("SubCategory",listA);
+        result.put("Keyword",listB);
 
         return result;
     }
