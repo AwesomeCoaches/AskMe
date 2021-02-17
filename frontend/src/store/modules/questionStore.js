@@ -5,14 +5,28 @@ import api from '@/assets/api/api'
 const questionStore = {
     namespaced : true,
     state: {
-        sample: ""
+        questions: null,
     },
     getters: {
 
     },
     mutations: {
+        setQuestions(state, questions) {
+            state.questions = questions
+        }
     },
     actions: {
+        // 질문 가져오기
+        fetchQuestions({ rootGetters, commit }) {
+            axios.get(api.URL + api.ROUTES.questions, rootGetters.config)
+                .then(res => {
+                    commit('setQuestions', res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+        // 질문 추가하기 
         addQuestion({rootGetters}, questionData) {
             axios.post(api.URL + api.ROUTES.questions, questionData, rootGetters.config)
                 .then(res => {
