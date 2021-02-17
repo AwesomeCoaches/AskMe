@@ -9,11 +9,11 @@
             <v-col cols="4">
                 <h3>카테고리별</h3>
                 <div class="list-container">
-                    <div class="list-element d-flex" v-for="l in list" :key="l.rank">
-                        <h2 class="rank-number my-auto ml-5 mr-10">{{ l.rank }}</h2>
+                    <div class="list-element d-flex" v-for="(category, i) in categoryRanking" :key="i">
+                        <h2 class="rank-number my-auto ml-5 mr-10">{{ i + 1 }}</h2>
                         <div>
-                            <h4>{{ l.category }}</h4>
-                            <h6>질문: {{ l.q }}</h6>
+                            <h4>{{ category._id }}</h4>
+                            <h6>질문: {{ category.Questions }}</h6>
                         </div>
                     </div>
                 </div>
@@ -22,11 +22,11 @@
             <v-col cols="4">
                 <h3>키워드별</h3>
                 <div class="list-container">
-                    <div class="list-element d-flex" v-for="l in list" :key="l.rank">
-                        <h2 class="rank-number my-auto ml-5 mr-10">{{ l.rank }}</h2>
+                    <div class="list-element d-flex" v-for="(keyword, i) in keywordRanking" :key="i">
+                        <h2 class="rank-number my-auto ml-5 mr-10">{{ i + 1 }}</h2>
                         <div>
-                            <h4>{{ l.category }}</h4>
-                            <h6>질문: {{ l.q }}</h6>
+                            <h4>{{ keyword._id }}</h4>
+                            <h6>질문: {{ keyword.Questions }}</h6>
                         </div>
                     </div>
                 </div>
@@ -38,23 +38,36 @@
 </template>
 
 <script>
+import axios from 'axios'
+import api from '@/assets/api/api'
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'Ranking',
     data() {
         return {
-            list: [
-                {rank: 1, category: 'Spring', q: 10},
-                {rank: 2, category: 'Django', q: 9},
-                {rank: 3, category: 'Flask', q: 8},
-                {rank: 4, category: 'Vue.js', q: 7},
-                {rank: 5, category: 'React', q: 6},
-                {rank: 6, category: 'Angular', q: 5},
-                {rank: 7, category: 'Node.js', q: 4},
-                {rank: 8, category: 'Tensorflow', q: 3},
-                {rank: 9, category: 'Pandas', q: 2},
-                {rank: 10, category: 'PyTorch', q: 1},
-            ]
+            categoryRanking: [],
+            keywordRanking: []
         }
+    },
+
+    computed: {
+        ...mapGetters(['config'])
+    },
+
+    methods: {
+        fetchRankingList() {
+            axios.get(api.URL + api.ROUTES.statistics, this.config)
+                .then(res => {
+                    this.categoryRanking = res.data.SubCategory
+                    this.keywordRanking = res.data.Keyword
+                })
+                .catch(err => console.error(err))
+        },
+    },
+
+    mounted() {
+        this.fetchRankingList()
     },
 }
 </script>
@@ -65,8 +78,9 @@ export default {
     }
 
     .background {
-    background-color: #d1f2e8;
-    height: 100%;
+        margin: 0 !important;
+        background-color: #d1f2e8;
+        height: 100%;
     }
 
     .list-element {
@@ -76,7 +90,4 @@ export default {
     border-radius: 5px;
     }
     
-    .rank-number {
-        
-    }
 </style>
