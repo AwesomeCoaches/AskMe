@@ -39,7 +39,9 @@ public class StatisticsController {
         List<HashMap> listA = resultA.getMappedResults();
 
         GroupOperation groupB = Aggregation.group("Keyword").count().as("Questions");
-        Aggregation aggregationB = Aggregation.newAggregation(groupB);
+        SortOperation sortB = Aggregation.sort(Sort.Direction.DESC, "Questions");
+        LimitOperation limitB = Aggregation.limit(10);
+        Aggregation aggregationB = Aggregation.newAggregation(groupB, sortB, limitB);
         AggregationResults<HashMap> resultB = mongoTemplate.aggregate(aggregationB, "question", HashMap.class);
         List<HashMap> listB = resultB.getMappedResults();
 
