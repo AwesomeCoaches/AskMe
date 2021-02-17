@@ -2,37 +2,59 @@
   <div class="home">
     <!-- Q & A 리스트 -->
     <div class="col-9">
-      <v-card
-      :loading="loading"
-      class="mx-auto my-12"
-      width="100%" 
-      @click="clickCard"
-      >
-    
-        <template slot="progress">
-          <v-progress-linear
-            color="deep-purple"
-            height="10"
-            indeterminate
-          ></v-progress-linear>
-        </template>
+      <div v-for="question in questions" :key="question.qid">
+        <v-card
+          class="mx-auto my-12 p-2"
+          width="100%" 
+          @click="clickCard(question.qid)"
+          min-height="160px"
+        >
+          <h6># {{question.qid}}</h6>
+          <div class="d-flex">
+            <div class="col-2 m-auto">
+              <div class="question-count d-flex justify-content-center align-center mr-0">
+                {{question.count}} 회
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="d-flex flex-column justify-content-between h-100">
+                <h5>Q. {{question.title}}</h5>
+                <div>        
+                  <v-chip 
+                    class="mr-3" 
+                    text-color="white" 
+                    color="#27433a"
+                  >
+                    {{question.mainCategory}}
+                  </v-chip>
+                  <v-chip 
+                    class="mr-3"
+                    text-color="white" 
+                    color="#468975" 
+                  >
+                    {{question.subCategory}}
+                  </v-chip>
+                  <v-chip 
+                    text-color="white" 
+                    color="#57ae94" 
+                  >
+                    {{question.keyword}}
+                  </v-chip>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="d-flex flex-column justify-content-between h-100">
+                <h6 class="text-right">{{question.author}}</h6>
+                <p class="text-right text-muted">{{question.createDate}}</p>
+              </div>
 
-        <v-card-text># 질문 번호</v-card-text>
-        
-         
-        <v-card-title>Q. 여기에 질문을 작성할 것입니다. I'll write question here.</v-card-title>
-        <v-card-title class="d-flex justify-content-end">작성자다!</v-card-title>
-        
-        <v-divider class="mx-4"></v-divider>
-        <v-card-text>
-          <v-col align="left" margin="0px" >        
-            <v-chip text-color="white" color="blue" small>대분류</v-chip>
-            <v-chip text-color="white" color="green" small>소분류</v-chip>
-            <v-chip text-color="white" color="pink" small>키워드</v-chip>
-          </v-col>
-        </v-card-text>   
-   
-      </v-card>
+            </div>
+          </div>
+    
+        </v-card>
+      </div>
+
     </div>
     <!-- 목차쪽 -->
     <div class="col-3">
@@ -46,98 +68,49 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Home',
   data() {
     return {
     }
   },
+  computed: {
+    ...mapState('questionStore', ['questions'])
+  },
   methods: {
-    clickCard() {
-      this.$router.push('/detail')
+    ...mapActions('questionStore', ['fetchQuestions']),
+    clickCard(qid) {
+      this.$router.push({ name: 'Detail', params: { qid: qid }})
     },
     clickAdd() {
       this.$router.push('/add')
     }
+  },
+  created() {
+    this.fetchQuestions()
   }
 }
 </script>
 
 <style scoped lang="scss">
-.background {
-  background-color: snow;
-  height: 100%;
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0 !important;
 }
 
-.card {
-  height: 60%;
-  border-radius: 5%;
-  border: 0;
-  box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, .1);
-  .card-item {
-    height: 100%;
-    .intro {
-      background-color: #d1f2e8;
-      border-top-left-radius: 6%;
-      border-bottom-left-radius: 6%;
-      hr {
-        height: 3px;
-        background-color: #2e0d17;
-      }
-      .welcome {
-        color: midnightblue;
-      }
-      .intro-text {
-        word-break: keep-all;
-      }
-      button {
-        border: 1px solid white;
-        border-radius: 15px;
-        &:hover {
-          background-color: #8bdec5;
-          color: white;
-        }
-      }
-    }
-    .signup-form {
-      .signup-container {
-        width: 60%;
-      }
-      hr {
-        margin-bottom: 10px;
-        height: 3px;
-        background-color: midnightblue; 
-        border: 0;
-      }
-      input {
-        font-family: fangsong;
-        border-bottom: 2px solid #8080800f;
-        margin: 15px 0;
-        width: 100%;
-        &:hover, &:active {
-          border-bottom: 2px solid #8bdec5;
-        }
-      } 
-      button {
-        background-color: #8bdec5;
-        color: white;
-        width: 100%;
-        border-radius: 15px;
-        &:hover {
-            background-color: #67d5b5;
-        }
-      }
-    }
-  }
+.question-count {
+  height: 100px;
+  width: 100px;
+  background-color: #ccf0e6;
+  color: black;
+  font-size: 1.2rem;
 }
-
 .plus {
   font-size: 2.5rem;
-  background-color: pink;
-  color: white; 
-  width: 50px;
-  height: 50px;
-  position: absolute;
+  background-color: #ccf0e6;
+  color: black; 
+  padding: 5px 25px 5px 25px;
+  position: fixed;
   right: 50px;
   bottom : 50px;
   border-radius: 50%;
