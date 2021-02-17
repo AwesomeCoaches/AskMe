@@ -5,27 +5,27 @@
             <!-- header -->
             <div class="d-flex header">
                 <div class="counter text-center mr-4">
-                    <p>5</p>
+                    <p>{{question.count}}회</p>
                 </div>
                 <div class="d-flex">
-                    <h3>프론트 어떻게 배포하나여?</h3>
+                    <h3>{{question.title}}</h3>
                 </div>
             </div>
             <!-- content  -->
             <div class="content mt-3">
                 <!-- Detailed Question -->
-                <p>Vue.js를 배포하고 싶은데....<br>너무 어렵다요 ㅜㅜ</p>
+                <p class="mb-3">{{question.content}}</p>
                 <!-- 대분류 소분류 -->
                 <div class="d-flex">
-                    <button class="badge big-classification" disabled>프론트엔드</button>
-                    <button class="badge small-classification" disabled>Vue.js</button>
+                    <button class="badge big-classification" disabled>{{question.mainCategory}}</button>
+                    <button class="badge small-classification" disabled>{{question.subCategory}}</button>
                 </div>
             </div>
             <!-- footer -->
-            <div class="footer d-flex mt-2">
+            <div class="footer d-flex my-2">
                 <p>
-                    <span>신채린</span> ·
-                    <span>2021.02.04</span>
+                    <span>{{question.author}}</span> ·
+                    <span>{{question.createDate}}</span>
                 </p>
             </div>
         </div>
@@ -77,8 +77,19 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
-    name: 'Detail'
+    name: 'Detail',
+    computed: {
+        ...mapState('questionStore', ['question'])
+    },
+    methods: {
+        ...mapActions('questionStore', ['getQuestion'])
+    },
+    created() {
+        this.getQuestion(this.$route.params.qid)
+    }
 }
 </script>
 

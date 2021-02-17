@@ -16,7 +16,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/detail',
+    path: '/questions/:qid',
     name: 'Detail',
     component: Detail
   },

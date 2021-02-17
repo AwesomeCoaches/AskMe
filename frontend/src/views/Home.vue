@@ -6,7 +6,7 @@
         <v-card
           class="mx-auto my-12 p-2"
           width="100%" 
-          @click="clickCard"
+          @click="clickCard(question.qid)"
           min-height="160px"
         >
           <h6># {{question.qid}}</h6>
@@ -80,8 +80,8 @@ export default {
   },
   methods: {
     ...mapActions('questionStore', ['fetchQuestions']),
-    clickCard() {
-      this.$router.push('/detail')
+    clickCard(qid) {
+      this.$router.push({ name: 'Detail', params: { qid: qid }})
     },
     clickAdd() {
       this.$router.push('/add')
