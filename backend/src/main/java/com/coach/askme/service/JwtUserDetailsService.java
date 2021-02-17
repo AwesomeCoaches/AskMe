@@ -23,8 +23,6 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Member> memOpt = memberRepo.findByName(username);
-        System.out.println(username);
-        System.out.println(memOpt);
 
         if (memOpt.get().getName().equals(username)) {
             return new User(memOpt.get().getName(), memOpt.get().getPassword(),
