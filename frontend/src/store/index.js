@@ -16,7 +16,7 @@ export default new Vuex.Store({
     author: ""
   },
   getters: {
-    config: state => ({headers: { jwt : state.authToken }}),
+    config: state => ({headers: { 'Authorization' : `Bearer ${state.authToken}`}}),
   },
   mutations: {
     SET_TOKEN(state, token) {
@@ -42,8 +42,7 @@ export default new Vuex.Store({
     login({ commit }, loginData) {
       axios.post(api.URL + api.ROUTES.login, loginData)
         .then(res => {
-          console.log("Success", res)
-          commit('SET_TOKEN', res.data)
+          commit('SET_TOKEN', res.data.token)
           commit('SET_AUTHOR', loginData.name)
           router.push({ name: 'Home' })
         })

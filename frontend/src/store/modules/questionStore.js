@@ -13,9 +13,8 @@ const questionStore = {
     mutations: {
     },
     actions: {
-        addQuestion(state, questionData) {
-            console.log(state.sample)
-            axios.post(api.URL + api.ROUTES.questions, questionData)
+        addQuestion({rootGetters}, questionData) {
+            axios.post(api.URL + api.ROUTES.questions, questionData, rootGetters.config)
                 .then(res => {
                     console.log("SUCCESS", res)
                 })
