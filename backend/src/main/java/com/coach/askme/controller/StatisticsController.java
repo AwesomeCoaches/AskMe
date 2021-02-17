@@ -5,11 +5,9 @@ import com.coach.askme.repo.QuestionRepo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.GroupOperation;
-import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +32,9 @@ public class StatisticsController {
     public HashMap<String,List> getStatistics() {
 
         GroupOperation groupA = Aggregation.group("SubCategory").count().as("Questions");
-        Aggregation aggregationA = Aggregation.newAggregation(groupA);
+        SortOperation sortA = Aggregation.sort(Sort.Direction.DESC, "Questions");
+        LimitOperation limitA = Aggregation.limit(10);
+        Aggregation aggregationA = Aggregation.newAggregation(groupA, sortA, limitA);
         AggregationResults<HashMap> resultA = mongoTemplate.aggregate(aggregationA, "question", HashMap.class);
         List<HashMap> listA = resultA.getMappedResults();
 
