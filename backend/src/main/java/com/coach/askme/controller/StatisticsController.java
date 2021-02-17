@@ -9,8 +9,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Api(value = "통계 대한 API")
@@ -28,18 +31,22 @@ public class StatisticsController {
 
     @ApiOperation(value = "통계")
     @GetMapping("")
-    public List<Question> getStatistics() {
+    public HashMap<String,List> getStatistics() {
 
-        GroupOperation group = Aggregation.group("Count").count().as("Questions");
-        Aggregation aggregation = Aggregation.newAggregation(group);
+        GroupOperation groupA = Aggregation.group("SubCategory").count().as("Questions");
+        Aggregation aggregationA = Aggregation.newAggregation(groupA);
+        AggregationResults<HashMap> resultA = mongoTemplate.aggregate(aggregationA, "question", HashMap.class);
+        List<HashMap> listA = resultA.getMappedResults();
 
-//        mongoTemplate = new MongoTemplate();
-        AggregationResults results = mongoTemplate.aggregate(aggregation, "question", Question.class);
+        GroupOperation groupB = Aggregation.group("Keyword").count().as("Questions");
+        Aggregation aggregationB = Aggregation.newAggregation(groupB);
+        AggregationResults<HashMap> resultB = mongoTemplate.aggregate(aggregationB, "question", HashMap.class);
+        List<HashMap> listB = resultB.getMappedResults();
 
-        List<Question> list = results.getMappedResults();
+        HashMap<String, List> result = new HashMap<>();
+        result.put("subCategory",listA);
+        result.put("keyword",listB);
 
-        list.forEach(System.out::println);
-
-        return list;
+        return result;
     }
 }
