@@ -31,7 +31,8 @@ public class QuestionController {
     @ApiOperation(value = "질문 전체 리스트")
     @GetMapping("")
     public List<Question> getQuestion() {
-        List<Question> list = questionRepo.findAll();
+//        List<Question> list = questionRepo.findAll();
+        List<Question> list = questionRepo.findByOrderByQidDesc();
         return list;
     }
 

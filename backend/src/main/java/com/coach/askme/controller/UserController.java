@@ -7,6 +7,7 @@ import com.coach.askme.model.Member;
 import com.coach.askme.repo.MemberRepo;
 import com.coach.askme.service.JwtUserDetailsService;
 import com.coach.askme.service.UserService;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Optional;
 
 @Api(value = "유저에 대한 API")
 @RestController
@@ -52,17 +57,6 @@ public class UserController {
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
-//    @ApiOperation(value = "로그인")
-//    @PostMapping("/login")
-//    public ResponseEntity<Boolean> login(@RequestBody Member user) {
-//        Optional<Member> userOpt = memberRepo.findByNameAndPassword(user.getName(), user.getPassword()); // 이름으로 DB 검색
-//        if (userOpt != null) {
-//            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
-//        }
-//    }
-
     @ApiOperation(value = "로그인")
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -85,5 +79,33 @@ public class UserController {
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
+    }
+
+    @ApiOperation(value = "사용자 정보 가져오기")
+    @GetMapping("")
+    public HashMap<String,String> getUser(HttpServletRequest request) throws Exception {
+//        System.out.println(request);
+        final String requestTokenHeader = request.getHeader("Authorization");
+        HashMap<String, String> map = new HashMap<>();
+        String username = null;
+        String jwtToken = null;
+
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+            jwtToken = requestTokenHeader.substring(7);
+            try {
+                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+                Optional<Member> memOpt = memberRepo.findByName(username);
+                map.put("name",memOpt.get().getName());
+                map.put("mid",memOpt.get().getMid()+"");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Unable to get JWT Token");
+            } catch (ExpiredJwtException e) {
+                System.out.println("JWT Token has expired");
+            }
+        } else {
+//            logger.warn("JWT Token does not begin with Bearer String");
+        }
+
+        return map;
     }
 }

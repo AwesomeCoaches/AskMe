@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface QuestionRepo extends MongoRepository<Question, Long> {
 
     Optional<Question> findByQid(Long qid);
+    List<Question> findByOrderByQidDesc();
 
 }
