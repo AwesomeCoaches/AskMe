@@ -57,6 +57,27 @@
     ```
   
     
+    
+  - **/users**
+  
+    ```assembly
+    # 사용자 상세정보 가져오기
+    Method : Get
+    ```
+  
+    | Parameter | Type   | Description |
+    | --------- | ------ | ----------- |
+    | token     | String | 사용자 토큰 |
+  
+    ```assembly
+    # Response
+    {
+      "name": "string",
+      "mid": "string",
+    }
+    ```
+  
+    
   
 - #### Question Controller
 
