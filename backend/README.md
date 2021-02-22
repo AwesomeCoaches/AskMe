@@ -286,7 +286,7 @@
             {
                 "author": "String",
                 "content": "String",
-              "createDate": "2021-02-09T01:21:42.007Z",
+                "createDate": "2021-02-09T01:21:42.007Z",
                 "qid": 0
           }
       ]
@@ -309,9 +309,9 @@
       # Response
     {
           "author": "String",
-        "content": "String",
+          "content": "String",
           "createDate": "2021-02-09T01:21:42.007Z",
-        "qid": 0
+          "qid": 0
       }
       ```
   
