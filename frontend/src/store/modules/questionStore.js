@@ -85,6 +85,15 @@ const questionStore = {
                 .catch(err => {
                     console.log("FAIL", err)
                 })
+        },
+        deleteAnswer({ rootGetters, dispatch }, data) {
+            axios.delete(api.URL + api.ROUTES.answers + "/" + data.aid, rootGetters.config)
+                .then(()=> {
+                    dispatch('fetchAnswers', data.qid)
+                })
+                .catch(err => {
+                    console.log("FAIL", err)
+                })
         }
     },
 }

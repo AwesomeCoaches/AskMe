@@ -62,9 +62,17 @@
                     v-for="answer in answers"
                     :key="answer.aid"
                 >
-                    <div class="header">
-                        <h6>{{answer.author}}님 답변</h6>
-                        <h6>{{answer.createDate}}</h6>
+                    <div class="header d-flex justify-content-between">
+                        <div>
+                            <h6>{{answer.author}}님 답변</h6>
+                            <h6>{{answer.createDate}}</h6>
+                        </div>
+                        <button 
+                            v-if="answer.author===userInfo.name"
+                            @click="deleteAnswer({aid: answer.aid, qid: question.qid})"
+                        >
+                            삭제
+                        </button>
                     </div>
                     <hr class="my-2" />
                     <div class="content">
@@ -95,17 +103,20 @@ export default {
         ...mapState(['userInfo']),
         ...mapState('questionStore', ['question', 'answers']),
         countingAnswers: function() {
-            if (this.answers.length >= 1) {
-                return "A " + this.answers.length + "개"
+            if (this.answers) {
+                if (this.answers.length >= 1) {
+                    return "A " + this.answers.length + "개"
+                } else {
+                    return "아직 등록된 답변이 없어요"
+                }
             } else {
                 return "아직 등록된 답변이 없어요"
             }
-            
         }
     },
     methods: {
         ...mapActions(['getInfo']),
-        ...mapActions('questionStore', ['getQuestion', 'deleteQuestion', 'fetchAnswers']),
+        ...mapActions('questionStore', ['getQuestion', 'deleteQuestion', 'fetchAnswers', 'deleteAnswer']),
     },
     created() {
         this.getQuestion(this.$route.params.qid)
