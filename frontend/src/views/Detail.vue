@@ -75,8 +75,9 @@
                         </button>
                     </div>
                     <hr class="my-2" />
-                    <div class="content">
-                        {{answer.content}}
+                    <div id="content" v-html="answer.content">
+                        <!-- {{getContent(answer.content)}} -->
+                        <!-- {{answer.content}} -->
                     </div>
                 </div>
             </div>
@@ -112,7 +113,11 @@ export default {
             } else {
                 return "아직 등록된 답변이 없어요"
             }
-        }
+        },
+        // getContent(content) {
+        //     document.getElementById("content").innerHTML = content
+        //     return 0
+        // }
     },
     methods: {
         ...mapActions(['getInfo']),

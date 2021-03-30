@@ -124,7 +124,7 @@ export default {
     ...mapActions(['getInfo']),
     ...mapActions('questionStore', ['addQuestion']),
     submit() {
-      var content = this.$refs.toastuiEditor.invoke("getMarkdown")
+      var content = this.$refs.toastuiEditor.invoke("getHtml")
       if (this.mainCategory === "") {
         alert('대분류를 선택해주세요')
       } else if (this.subCategory === "") {

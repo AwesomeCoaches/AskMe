@@ -66,7 +66,7 @@ export default {
         let answerData = {
           author: this.userInfo.name,
           qid: this.$route.params.qid ,
-          content: this.$refs.toastuiEditor.invoke("getMarkdown")
+          content: this.$refs.toastuiEditor.invoke("getHtml")
         }
         this.addAnswer(answerData)
         this.$emit('close')
