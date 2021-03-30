@@ -28,7 +28,7 @@
             <!-- content  -->
             <div class="content mt-3">
                 <!-- Detailed Question -->
-                <p class="mb-3">{{question.content}}</p>
+                <p class="mb-3" v-html="question.content"></p>
                 <!-- 대분류 소분류 -->
                 <div class="d-flex">
                     <button class="badge big-classification" disabled>{{question.mainCategory}}</button>
@@ -75,8 +75,9 @@
                         </button>
                     </div>
                     <hr class="my-2" />
-                    <div class="content">
-                        {{answer.content}}
+                    <div id="content" v-html="answer.content">
+                        <!-- {{getContent(answer.content)}} -->
+                        <!-- {{answer.content}} -->
                     </div>
                 </div>
             </div>
@@ -112,7 +113,11 @@ export default {
             } else {
                 return "아직 등록된 답변이 없어요"
             }
-        }
+        },
+        // getContent(content) {
+        //     document.getElementById("content").innerHTML = content
+        //     return 0
+        // }
     },
     methods: {
         ...mapActions(['getInfo']),
