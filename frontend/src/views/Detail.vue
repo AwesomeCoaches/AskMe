@@ -3,13 +3,27 @@
          <!-- Question Part -->
         <div class="w-50 mx-auto question">
             <!-- header -->
-            <div class="d-flex header">
-                <div class="counter text-center mr-4">
-                    <p>{{question.count}}회</p>
+            <div class="d-flex justify-content-between header">
+                <div>   
+                    <div class="counter text-center mr-4">
+                        <p>{{question.count}}회</p>
+                    </div>
+                    <div class="d-flex">
+                        <h3>{{question.title}}</h3>
+                    </div>
                 </div>
-                <div class="d-flex">
-                    <h3>{{question.title}}</h3>
+                <div>
+                    <div class="mt-3">
+                        <button
+                            v-if="question.author === userInfo.name"
+                            id="delete-btn"
+                            @click="deleteQuestion(question.qid)"
+                        >
+                            삭제
+                        </button>
+                    </div>
                 </div>
+                
             </div>
             <!-- content  -->
             <div class="content mt-3">
@@ -33,65 +47,70 @@
         <!-- 답변 -->
         <div class="bottom">
             <div class="w-50 mx-auto">
-                <h4 class="my-3">A 3개</h4>
-                <!--  답변 1 -->
-                <div class="answer p-3 my-3">
-                    <div class="header">
-                        <h6>신채린님 답변</h6>
-                        <h6>2021.02.04</h6>
-                    </div>
-                    <hr class="my-2" />
-                    <div class="content">
-                        <p>nginx 사용하면 해결돼요.</p>
-                        <p>여기 링크 참고해보세요!.</p>
-                    </div>
+                <div class="d-flex justify-content-between my-3">
+                    <h4>{{countingAnswers}}</h4>
+                    <button
+                        id="show-modal"
+                        @click="showModal=true"
+                    >
+                        답변 작성하기
+                    </button>
+                    <modal v-if="showModal" @close="showModal=false"></modal>
                 </div>
-                <!--  답변 2 -->
-                <div class="answer p-3 my-3">
+                <div 
+                    class="answer p-3 my-3"
+                    v-for="answer in answers"
+                    :key="answer.aid"
+                >
                     <div class="header">
-                        <h6>신채린님 답변</h6>
-                        <h6>2021.02.04</h6>
+                        <h6>{{answer.author}}님 답변</h6>
+                        <h6>{{answer.createDate}}</h6>
                     </div>
                     <hr class="my-2" />
                     <div class="content">
-                        <p>nginx 사용하면 해결돼요.</p>
-                        <p>여기 링크 참고해보세요!.</p>
-                    </div>
-                </div>
-                <!--  답변 3 -->
-                <div class="answer p-3 my-3">
-                    <div class="header">
-                        <h6>신채린님 답변</h6>
-                        <h6>2021.02.04</h6>
-                    </div>
-                    <hr class="my-2" />
-                    <div class="content">
-                        <p>nginx 사용하면 해결돼요.</p>
-                        <p>여기 링크 참고해보세요!.</p>
+                        {{answer.content}}
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import modal from '@/components/Modal.vue'
 
 export default {
     name: 'Detail',
+    components: {
+        modal
+    },
+    data() {
+        return {
+            showModal: false
+        }
+        
+    },
     computed: {
         ...mapState(['userInfo']),
-        ...mapState('questionStore', ['question'])
+        ...mapState('questionStore', ['question', 'answers']),
+        countingAnswers: function() {
+            if (this.answers.length >= 1) {
+                return "A " + this.answers.length + "개"
+            } else {
+                return "아직 등록된 답변이 없어요"
+            }
+            
+        }
     },
     methods: {
         ...mapActions(['getInfo']),
-        ...mapActions('questionStore', ['getQuestion'])
+        ...mapActions('questionStore', ['getQuestion', 'deleteQuestion', 'fetchAnswers']),
     },
     created() {
         this.getQuestion(this.$route.params.qid)
         this.getInfo()
+        this.fetchAnswers(this.$route.params.qid)
     }
 }
 </script>
@@ -119,6 +138,11 @@ html, body {
             font-weight: bold;
             line-height: 50px;
         }
+    }
+    #delete-btn {
+        background-color: #d1f2e8;
+        padding: 5px;
+        border-radius: 20%;
     }
     h3 {
         font-weight: bold;

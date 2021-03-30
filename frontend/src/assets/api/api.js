@@ -5,6 +5,7 @@ export default {
       signup: '/users/signup',
       login: '/users/login',
       questions: '/questions',
+      answers: '/answers',
       statistics: '/statistics',
     }
   }
