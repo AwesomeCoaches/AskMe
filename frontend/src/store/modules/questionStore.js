@@ -6,7 +6,8 @@ const questionStore = {
     namespaced : true,
     state: {
         questions: null,
-        question: null
+        question: null,
+        answers: null,
     },
     getters: {
 
@@ -17,6 +18,9 @@ const questionStore = {
         },
         setQuestion(state, question) {
             state.question = question 
+        },
+        setAnswers(state, payload) {
+            state.answers = payload
         }
     },
     actions: {
@@ -41,8 +45,40 @@ const questionStore = {
                 })
         },
         // 질문 추가하기 
-        addQuestion({rootGetters}, questionData) {
+        addQuestion({ rootGetters }, questionData) {
             axios.post(api.URL + api.ROUTES.questions, questionData, rootGetters.config)
+                .then(res => {
+                    console.log("SUCCESS", res)
+                    router.push({ name: 'Home' })
+                })
+                .catch(err => {
+                    console.log("FAIL", err)
+                })
+        },
+        //질문 삭제하기
+        deleteQuestion({ rootGetters }, qid) {
+            axios.delete(api.URL + api.ROUTES.questions + "/" + qid, rootGetters.config)
+                .then(() => {
+                    console.log("SUCCESS DELETING")
+                    router.push({ name: 'Home'})
+                })
+                .catch(err => {
+                    console.log("FAIL", err)
+                })
+        },
+        // 답변 가져오기
+        fetchAnswers({ rootGetters, commit }, qid) {
+            axios.get(api.URL + api.ROUTES.answers + "/qid/" + qid, rootGetters.config)
+                .then(res => {
+                    commit('setAnswers', res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+        // 답변 등록하기 
+        addAnswer({ rootGetters }, answerData) {
+            axios.post(api.URL + api.ROUTES.answers, answerData, rootGetters.confg)
                 .then(res => {
                     console.log("SUCCESS", res)
                     router.push({ name: 'Home' })
