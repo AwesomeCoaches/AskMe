@@ -77,11 +77,10 @@ const questionStore = {
                 })
         },
         // 답변 등록하기 
-        addAnswer({ rootGetters }, answerData) {
-            axios.post(api.URL + api.ROUTES.answers, answerData, rootGetters.confg)
-                .then(res => {
-                    console.log("SUCCESS", res)
-                    router.push({ name: 'Home' })
+        addAnswer({ rootGetters, dispatch }, answerData) {
+            axios.post(api.URL + api.ROUTES.answers, answerData, rootGetters.config)
+                .then(() => {
+                    dispatch('fetchAnswers', answerData.qid)
                 })
                 .catch(err => {
                     console.log("FAIL", err)
