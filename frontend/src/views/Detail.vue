@@ -28,7 +28,7 @@
             <!-- content  -->
             <div class="content mt-3">
                 <!-- Detailed Question -->
-                <p class="mb-3">{{question.content}}</p>
+                <p class="mb-3" v-html="question.content"></p>
                 <!-- 대분류 소분류 -->
                 <div class="d-flex">
                     <button class="badge big-classification" disabled>{{question.mainCategory}}</button>
