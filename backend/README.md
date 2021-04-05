@@ -270,7 +270,7 @@
   
   
   
-  - **/answers/{qid}**
+  - **/answers/qid/{qid}**
     
       ```assembly
       # 질문에 대한 답글 전체 리스트 
